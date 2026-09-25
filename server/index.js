@@ -12,11 +12,19 @@ import { sign, verify, requireAuth } from "./auth.js";
 
 const PORT = process.env.PORT ?? 4000;
 const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/nexusflow";
-const FRONTEND_URL = process.env.FRONTEND_URL ?? "https://nexusflow-eta.vercel.app";
+const allowedOrigins = [
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",").map((s) => s.trim()) : ["https://nexusflow-eta.vercel.app"]),
+  "http://localhost:8081",
+  "http://localhost:19006",
+  "http://localhost:3000",
+];
 
 const app = express();
-app.use(cors({ origin: [FRONTEND_URL, "http://localhost:8081", "http://localhost:19006"], credentials: true }));
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
+
+// Health check endpoint
+app.get("/", (req, res) => res.json({ status: "ok", message: "NexusFlow API is running" }));
 
 // --- Dev auth: issues a JWT for any credentials (replace with real auth). ---
 app.post("/api/login", (req, res) => {
@@ -30,7 +38,7 @@ app.get("/api/me", requireAuth, (req, res) => res.json(req.user));
 app.use("/api", teamRoutes);
 
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: [FRONTEND_URL, "http://localhost:8081", "http://localhost:19006"] } });
+const io = new Server(server, { cors: { origin: allowedOrigins, credentials: true } });
 
 // Socket auth middleware: validate handshake token.
 io.use((socket, next) => {
