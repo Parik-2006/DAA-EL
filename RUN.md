@@ -16,7 +16,7 @@ npm run dev                 # starts on http://localhost:4000
 ## 2. Client
 ```bash
 cd client
-cp .env.example .env        # points at https://nexusflow-nxeg.onrender.com by default
+cp .env.example .env        # points at https://daa-el.onrender.com by default
 npm install
 npx expo start
 ```

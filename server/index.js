@@ -13,7 +13,7 @@ import { sign, verify, requireAuth } from "./auth.js";
 const PORT = process.env.PORT ?? 4000;
 const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/nexusflow";
 const allowedOrigins = [
-  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",").map((s) => s.trim()) : ["https://nexusflow-eta.vercel.app"]),
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",").map((s) => s.trim()) : ["https://daa-el-seven.vercel.app"]),
   "http://localhost:8081",
   "http://localhost:19006",
   "http://localhost:3000",

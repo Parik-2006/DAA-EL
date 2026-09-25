@@ -72,7 +72,7 @@ The architecture follows a layered design consisting of a React Native frontend,
 - Tailwind CSS
 - Socket.IO Client
 
-Deployed frontend: https://nexusflow-eta.vercel.app/
+Deployed frontend: https://daa-el-seven.vercel.app/
 
 ### Backend
 - Node.js
@@ -80,7 +80,7 @@ Deployed frontend: https://nexusflow-eta.vercel.app/
 - MongoDB
 - Socket.IO
 
-Deployed backend: https://nexusflow-nxeg.onrender.com/
+Deployed backend: https://daa-el.onrender.com/
 
 ### Artificial Intelligence
 - Google Gemini API
@@ -102,8 +102,8 @@ Deployed backend: https://nexusflow-nxeg.onrender.com/
 ## Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/NexusFlow.git
-cd NexusFlow
+git clone https://github.com/Parik-2006/DAA-EL.git
+cd DAA-EL
 ```
 
 ## Install Dependencies
