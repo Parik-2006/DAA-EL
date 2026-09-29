@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 
-const API = process.env.EXPO_PUBLIC_API_URL ?? "https://nexusflow-nxeg.onrender.com";
+const API = process.env.EXPO_PUBLIC_API_URL ?? "https://daa-el.onrender.com";
 
 export type SortMetrics = {
   timeMs: number;

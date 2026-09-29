@@ -12,7 +12,7 @@
  *
  * Usage:
  *   node server/scripts/seedDemo.js
- *   (respects MONGO_URI; defaults to mongodb://localhost:27017/nexusflow)
+ *   (respects MONGODB_URI / MONGO_URI; defaults to mongodb://localhost:27017/nexusflow_v)
  *
  * Safe to re-run: it removes the previous "DAA Demo Team" + its tasks first.
  * It NEVER touches other teams' data.
@@ -23,12 +23,16 @@ import mongoose from "mongoose";
 import Team from "../models/Team.js";
 import Task from "../models/Task.js";
 
-const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/nexusflow";
+const DB_NAME = process.env.DB_NAME || "nexusflow_v";
+const MONGO_URI =
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  `mongodb://localhost:27017/${DB_NAME}`;
 const TEAM_NAME = "DAA Demo Team";
 
 async function main() {
-  await mongoose.connect(MONGO_URI);
-  console.log(`[seed] connected to ${MONGO_URI}`);
+  await mongoose.connect(MONGO_URI, { dbName: DB_NAME });
+  console.log(`[seed] connected to database: ${mongoose.connection.name || DB_NAME}`);
 
   // ── Clean slate (demo team only) ──────────────────────────────────────────
   const existing = await Team.find({ name: TEAM_NAME }).lean();

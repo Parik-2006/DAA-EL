@@ -11,7 +11,11 @@ import { registerAiOrchestrator } from "./socket/aiOrchestrator.js";
 import { sign, verify, requireAuth } from "./auth.js";
 
 const PORT = process.env.PORT ?? 4000;
-const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/nexusflow";
+const DB_NAME = process.env.DB_NAME || "nexusflow_v";
+const MONGO_URI =
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  `mongodb://localhost:27017/${DB_NAME}`;
 const allowedOrigins = [
   ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",").map((s) => s.trim()) : ["https://daa-el-seven.vercel.app"]),
   "http://localhost:8081",
@@ -54,9 +58,9 @@ io.on("connection", (socket) => {
 });
 
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI, { dbName: DB_NAME })
   .then(() => {
-    console.log("MongoDB connected");
+    console.log(`MongoDB connected (database: ${mongoose.connection.name || DB_NAME})`);
     server.listen(PORT, () => console.log(`NexusFlow server on :${PORT}`));
   })
   .catch((err) => {
